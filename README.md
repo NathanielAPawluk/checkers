@@ -6,3 +6,7 @@ as well as a menu to select single/multiplayer modes.
 
 Running the main.py file opens and starts a game. The checkers.py file contains the classes that
 are responsible for most of the backend.
+
+## Known Issues
+
+Pieces can king and then immediately take an opposing piece on the same turn
