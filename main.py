@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 from checker import *
 
 # Initialize
@@ -23,7 +23,7 @@ def drawGraph(graph:dict, positions:dict):
         for e in edge:
             pygame.draw.line(screen, "blue", positions[vert], positions[e])
 
-game = Game()
+game = Game(sys.argv[0].strip("/main.py"))
 
 while running:
     clock.tick(30)
@@ -34,7 +34,7 @@ while running:
             game.clicked(event.pos)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:
-                game = Game()
+                game = Game(sys.argv[0].strip("/main.py"))
     
     drawBoard()
     game.draw(screen)

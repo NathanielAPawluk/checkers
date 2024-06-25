@@ -5,11 +5,12 @@ SQSIZE = 80
 
 # Holds information about a game piece
 class Checker:
-    def __init__(self, color, x, y, graph):
+    def __init__(self, color, x, y, graph, path):
         self.color = color
         self.graph = graph
         self.king = False
-        self.sprite = "assets/red.png" if color == WHITE else "assets/black.png"
+        self.path = path
+        self.sprite = f"{self.path}/assets/red.png" if color == WHITE else f"{self.path}/assets/black.png"
         self.image = pygame.image.load(self.sprite)
         self.image.set_colorkey(self.image.get_at((0,0)))
         self.updateLocation(x, y)
@@ -29,8 +30,9 @@ class Checker:
 
 # Handles all the game logic and holds the pieces
 class Game:
-    def __init__(self):
+    def __init__(self, path):
         self.gameOver = False
+        self.path = path
         self.createPositions()
         self.createWhiteGraph()
         self.createBlackGraph()
@@ -110,13 +112,13 @@ class Game:
         pieces = {}
         # The red pieces
         for i in range(1, 13):
-            pieces[i] = Checker(WHITE, self.positions[i][0], self.positions[i][1], self.whiteGraph)
+            pieces[i] = Checker(WHITE, self.positions[i][0], self.positions[i][1], self.whiteGraph, self.path)
         # Empty spaces in the middle
         for i in range(13, 21):
             pieces[i] = None
         # The black pieces
         for i in range(21, 33):
-            pieces[i] = Checker(BLACK, self.positions[i][0], self.positions[i][1], self.blackGraph)
+            pieces[i] = Checker(BLACK, self.positions[i][0], self.positions[i][1], self.blackGraph, self.path)
 
         self.pieces = pieces
 
@@ -200,10 +202,10 @@ class Game:
         self.pieces[self.selected] = None
 
         if self.pieces[moveTo].color == WHITE and moveTo >= 29:
-            self.pieces[moveTo].kinged("assets/redKing.png", self.kingGraph)
+            self.pieces[moveTo].kinged(f"{self.path}/assets/redKing.png", self.kingGraph)
         
         elif self.pieces[moveTo].color == BLACK and moveTo <= 4:
-            self.pieces[moveTo].kinged("assets/blackKing.png", self.kingGraph)
+            self.pieces[moveTo].kinged(f"{self.path}/assets/blackKing.png", self.kingGraph)
 
         # Check for capture and where
         difference = abs(self.selected - moveTo)
