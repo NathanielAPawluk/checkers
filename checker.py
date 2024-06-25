@@ -9,7 +9,7 @@ class Checker:
         self.color = color
         self.graph = graph
         self.king = False
-        self.sprite = "red.png" if color == WHITE else "black.png"
+        self.sprite = "assets/red.png" if color == WHITE else "assets/black.png"
         self.image = pygame.image.load(self.sprite)
         self.image.set_colorkey(self.image.get_at((0,0)))
         self.updateLocation(x, y)
@@ -200,10 +200,10 @@ class Game:
         self.pieces[self.selected] = None
 
         if self.pieces[moveTo].color == WHITE and moveTo >= 29:
-            self.pieces[moveTo].kinged("redKing.png", self.kingGraph)
+            self.pieces[moveTo].kinged("assets/redKing.png", self.kingGraph)
         
         elif self.pieces[moveTo].color == BLACK and moveTo <= 4:
-            self.pieces[moveTo].kinged("blackKing.png", self.kingGraph)
+            self.pieces[moveTo].kinged("assets/blackKing.png", self.kingGraph)
 
         # Check for capture and where
         difference = abs(self.selected - moveTo)
